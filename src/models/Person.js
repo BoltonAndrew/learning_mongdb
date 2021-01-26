@@ -1,18 +1,28 @@
 /*jshint esversion:8*/
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const personSchema = new mongoose.Schema({
     name: {
-        type: String
+        type: String,
+        required: true
     },
     email: {
-        type: String
+        type: String,
+        required: true,
+        validite(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error("Invalid Email");
+            }
+        }
     },
     age: {
-        type: Number
+        type: Number,
+        required: true
     },
     likesPizza: {
-        type: Boolean
+        type: Boolean,
+        required: true
     }
 });
 
